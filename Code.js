@@ -56,12 +56,11 @@ function tryOut(){
   writeData(values)
 }
 
-//var callBackLance = function(detectStr, defArray) {
-//  //val = x['value']
-//  //i = x['index']
-//  function(x) {if(x['value'].indexOf(detectStr)>-1){return detectStr} else {return defArray[x['index']]}}
-//}
-//
+var callBackLance = function(detectStr, defArray) {
+  //val = x['value']
+  //i = x['index']
+  function(x) {if(x['value'].indexOf(detectStr)>-1){return detectStr} else {return defArray[x['index']]}}
+}
 
 function isArray(x) {
     return x.constructor.toString().indexOf("Array") > -1;
@@ -133,3 +132,6 @@ function parseConditions(cond){
 //  //preliminary check of conditions and any necessary refinements before parsing logic into boolean operator
 //  }
 }
+//
+//
+//
