@@ -66,17 +66,6 @@ function isArray(x) {
     return x.constructor.toString().indexOf("Array") > -1;
 }
 
-function compoundBooleanArr(arrA, arrB, operator){
-  if(operator == 'AND'){
-  
-  }
-  else if(operator == 'OR'){
-  
-  }  
-  else if(operator == 'ANTI'){//maybe this should be reserved for the other cases for convenience
-  }
-}
-
 function elwiseCompar(arrA, arrB) {
   //take in two arrays and return boolean element wise comparison
   return arrA.map(function(val, i){return val == arrB[i]});
