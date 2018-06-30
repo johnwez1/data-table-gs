@@ -23,7 +23,9 @@ syntax for conditions:
  - is not
  - contains
  - contains not
+ 
    (and date only:)
+   
  - after 
  - before
  
