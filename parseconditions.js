@@ -1,25 +1,17 @@
-function testArray() {
-    var x = ['arr1', '1', '2', '3', '4', '5', '6'];
-    var y = ['arr2', 'a', 'b', 'c', 'A', 'B', 'C'];
-    var z = ['arr3', 'x', 'y', 'z', 'X', 'Y', 'Z'];
-    var data = ['data', 'DATA', 'DATA', 'DATA', 'DATA', 'DATA', 'DATA']
-    
-    return [x, y, z, data]
-}
-
-function detailedArray() {
-    var x = ['arr1', '1', '2', '3', '4', '5', '6'];
-    var y = ['arr2', 'a', 'b', 'c', 'A', 'B', 'C'];
-    var z = ['arr3', 'x', 'y', 'z', 'X', 'Y', 'Z'];
-    var data = ['data', 'DATA123456', 'DATA12456', 'DATA123', 'DATA123', 'DATA123', 'DATA456']
-    
-    return [x, y, z, data]
-}
-
 function evaluateExpression(cond, arr) {
-  //testing only
-//    var arr = detailedArray()
-//    var cond = '(((data contains 123 OR arr3 contains Z OR data contains 3456)) AND arr1 contains not A)'// AND (arr2 is a OR arr2 is B)'
+    /*
+    The main function for parsing the conditions.
+    Algorithm works as follows:
+    For each character in the expression:
+        If the character is an operator (one of '(', ')', '+', '-' ), 
+            then push it to the operator stack
+            otherwise push the character to the expression stack
+            
+            If also, the expression stack and operator stack contains
+                then evaluate pop the composites, calculate and push the result back on to the expression stack
+        
+    The expression stack thus keeps composite expressions together and works through the entire expression from left to right until complete.
+    */
     cond = '(' + cond + ')'
     
     var newCond = cond.replace(/ AND /, '*').replace(/ OR /, '+')
@@ -111,13 +103,10 @@ function evaluateExpression(cond, arr) {
         } else {
             //partial push to string only
             expressionStack[expressionStack.length - 1] = expressionStack[expressionStack.length - 1] +  el
-        }
-        //Logger.log(expressionStack)
-//        Logger.log(operatorStack)
-        //Logger.log(el)      
+        }  
     }
     //confirm the structure we have here
-    return expressionStack
+    return expressionStack[0] 
 }
 
 function isBasicExpression(statement) {
@@ -157,31 +146,6 @@ function evaluateBasicExpression(statement, arr) {
   }
 }
 
-function __evaluateBasicExpression(statement) { //simple version for testing only
-    var parsedStatement = parseBasicExpression(statement)
-    //var lh_index = namedFieldIndex(parsedStatement["lh"], arr)
-    switch (parsedStatement["comparator"]) {
-        case ' is not ':
-            return false;
-            break;
-        case ' is ':
-            return true;
-            break;
-        case ' contains ':
-            return true;
-            break;
-        case ' contains not ':
-            return false;
-            break;
-        case ' after ':
-            return false;
-            break;
-        case ' before ':
-            return true;
-            break;
-    }
-}
-
 function parseBasicExpression(statement){
   //trim whitespace
   statement = statement.trim()   
@@ -215,13 +179,13 @@ function namedFieldIndex(name, arr){
 }
 
 function transpose(a)
-{//elegant solution, we require it so that map may be applied to columns
+{
   return Object.keys(a[0]).map(function (c) { return a.map(function (r) { return r[c]; }); });
 }
 
 function compoundBooleanArr(arr1, arr2, operator){    
     //need to use map because && || operators dont work on arrays as expected, 
-    //eg x = [true, false, false], y = [true, true, false]
+    // eg x = [true, false, false], y = [true, true, false]
     // but (y || x) != (x || y) 
     if(operator == '*'){
       return arr1.map(function(val, i) {return (val && arr2[i])})
