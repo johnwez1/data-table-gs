@@ -169,32 +169,6 @@ function parseBasicExpression(statement){
   return {lh: statement.split(comparator)[0], comparator: comparator, rh: statement.split(comparator)[1]}
 }
 
-function namedFieldIndex(name, arr){
-  // if the first index of element is same as last then return the column of that index
-  if(transpose(arr)[0].lastIndexOf(name) == transpose(arr)[0].indexOf(name)){ 
-    return transpose(arr)[0].indexOf(name) 
-  } else {
-    return
-  }
-}
-
-function transpose(a)
-{
-  return Object.keys(a[0]).map(function (c) { return a.map(function (r) { return r[c]; }); });
-}
-
-function compoundBooleanArr(arr1, arr2, operator){    
-    //need to use map because && || operators dont work on arrays as expected, 
-    // eg x = [true, false, false], y = [true, true, false]
-    // but (y || x) != (x || y) 
-    if(operator == '*'){
-      return arr1.map(function(val, i) {return (val && arr2[i])})
-    }
-    if(operator == '+'){
-      return arr1.map(function(val, i) {return (val || arr2[i])})
-    }   
-}
-
 function checkConditions(cond){
   //check if any remaining parenthesis anywhere
   if (cond.match(/\(/g).length != cond.match(/\)/g).length){
@@ -224,14 +198,5 @@ function checkConditions(cond){
   return true
 }
 
-function parseSplit(expression){
-  //expression must be parseable as JSON!!!
-  //var expression = '{"field":"FIELDNAME", "by":"SPLITAROUND", "index":INT (KEEP THIS INDEX)}' //if 
-  var expressionJSON = JSON.parse(expression)
-  if(expressionJSON.field == null || expressionJSON.by == null || expressionJSON.index == null){return} 
-  return expressionJSON
-}
 
-function isArray(x) {
-    return x.constructor.toString().indexOf("Array") > -1;
-}
+
