@@ -1,20 +1,21 @@
-functions
+# Data Table methods for Google Sheets
 
-allowed functions:
+## Functions
+
+Allowed functions:
  - mutate
- - drop
  - stack 
- - join
+ - select
 
-functions are all passed the [][] array, the names of the fields we will edit, helper functions/arguments
+Functions are all passed the [][] array, the names of the fields we will edit, helper functions/arguments
 
-Helper functions
+### Helper functions
 
 These are statements and syntax that only work in the context of functions, inluding:
  - conditions for the function to apply
  - 
 
-syntax for conditions:
+### Syntax for conditions:
  
  "lh comparator rh"
  
@@ -23,8 +24,14 @@ syntax for conditions:
  - is not
  - contains
  - contains not
+ 
    (and date only:)
+   
  - after 
  - before
  
+ ## GUI
  
+ Use sidebar to to easily write/load data and keep track of data table objects in memory
+ 
+ ## 
